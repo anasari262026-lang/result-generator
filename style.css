@@ -1,0 +1,338 @@
+/* =======================================
+   RESET
+======================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+}
+
+/* =======================================
+   APP
+======================================= */
+
+.app{
+    width:100%;
+    height:100vh;
+    display:flex;
+}
+
+/* =======================================
+   SIDEBAR
+======================================= */
+
+.sidebar{
+    width:380px;
+    min-width:380px;
+    background:#111827;
+    padding:25px;
+    overflow-y:auto;
+    border-right:1px solid #1f2937;
+}
+
+/* =======================================
+   LOGO
+======================================= */
+
+.logo{
+    margin-bottom:25px;
+}
+
+.logo h1{
+    font-size:28px;
+    color:#facc15;
+    margin-bottom:8px;
+}
+
+.logo p{
+    color:#9ca3af;
+    font-size:14px;
+}
+
+/* =======================================
+   FORM
+======================================= */
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    color:#ffffff;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group select{
+
+    width:100%;
+    height:50px;
+
+    border:none;
+    outline:none;
+
+    border-radius:10px;
+
+    background:#1f2937;
+
+    color:#ffffff;
+
+    padding:0 15px;
+
+    font-size:15px;
+
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+    border:2px solid #facc15;
+
+}
+
+/* =======================================
+   BUTTON
+======================================= */
+
+.button-group{
+    margin-top:25px;
+}
+
+.button-group button{
+
+    width:100%;
+    height:50px;
+
+    border:none;
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+    font-size:15px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:all .2s ease;
+
+}
+
+.button-group button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* AMBIL RESULT */
+
+#fetchBtn{
+
+    background:#2563eb;
+    color:white;
+
+}
+
+/* GENERATE */
+
+#generateBtn{
+
+    background:#f59e0b;
+    color:black;
+
+}
+
+/* DOWNLOAD */
+
+#downloadBtn{
+
+    background:#22c55e;
+    color:white;
+
+}
+
+/* =======================================
+   STATUS BOX
+======================================= */
+
+.status-box{
+
+    margin-top:30px;
+
+    background:#1f2937;
+
+    border-radius:12px;
+
+    padding:20px;
+
+}
+
+.status-box h3{
+
+    color:#facc15;
+
+    margin-bottom:15px;
+
+}
+
+.status-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    color:white;
+
+    font-size:14px;
+
+}
+
+.status-item strong{
+
+    color:#facc15;
+
+}
+
+/* =======================================
+   PREVIEW
+======================================= */
+
+.preview{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+    overflow:auto;
+
+}
+
+/* =======================================
+   CANVAS WRAPPER
+======================================= */
+
+.canvas-wrapper{
+
+    background:#111827;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 0 30px rgba(0,0,0,.35);
+
+}
+
+/* =======================================
+   CANVAS
+======================================= */
+
+#posterCanvas{
+
+    width:850px;
+    height:850px;
+
+    background:white;
+
+    border:3px solid #facc15;
+
+    display:block;
+
+}
+
+/* =======================================
+   SCROLLBAR
+======================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#111827;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#374151;
+    border-radius:10px;
+}
+
+/* =======================================
+   MOBILE
+======================================= */
+
+@media(max-width:1200px){
+
+    .app{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+        min-width:100%;
+
+        border-right:none;
+
+        border-bottom:1px solid #1f2937;
+
+    }
+
+    .preview{
+
+        padding:15px;
+
+    }
+
+    #posterCanvas{
+
+        width:95vw;
+        height:95vw;
+
+    }
+
+}
+
+/* =======================================
+   TABLET
+======================================= */
+
+@media(max-width:768px){
+
+    .sidebar{
+
+        padding:15px;
+
+    }
+
+    .logo h1{
+
+        font-size:22px;
+
+    }
+
+}
