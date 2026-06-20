@@ -1,6 +1,40 @@
-// =====================================
+// ======================================
+// MARKETS
+// ======================================
+
+const MARKETS = {
+
+    california: {
+        name: "CALIFORNIA",
+        template: "assets/california-template.jpg",
+
+        position: {
+            marketX: 540,
+            marketY: 240,
+
+            dateX: 540,
+            dateY: 330,
+
+            resultX: 540,
+            resultY: 620
+        },
+
+        style: {
+            marketColor: "#e3a729",
+            dateColor: "#ebb427",
+            resultColor: "#ffea00",
+
+            marketFont: "bold 96px Arial",
+            dateFont: "bold 46px Arial",
+            resultFont: "bold 205px Verdana"
+        }
+    }
+
+};
+
+// ======================================
 // ELEMENTS
-// =====================================
+// ======================================
 
 const canvas =
 document.getElementById("posterCanvas");
@@ -41,35 +75,26 @@ document.getElementById("liveDate");
 const lastUpdate =
 document.getElementById("lastUpdate");
 
-// =====================================
-// IMAGE
-// =====================================
-
 let templateImage =
 new Image();
 
-// =====================================
-// START
-// =====================================
+// ======================================
+// INIT
+// ======================================
 
-window.addEventListener(
-    "load",
-    init
-);
-
-function init(){
+window.onload = () => {
 
     populateMarkets();
 
     loadTemplate();
 
-}
+};
 
-// =====================================
+// ======================================
 // PASARAN
-// =====================================
+// ======================================
 
-function populateMarkets(){
+function populateMarkets() {
 
     marketSelect.innerHTML = "";
 
@@ -84,76 +109,46 @@ function populateMarkets(){
             option.textContent =
             MARKETS[key].name;
 
-            marketSelect.appendChild(
-                option
-            );
+            marketSelect.appendChild(option);
 
         });
 
-    const selected =
+    marketNameInput.value =
     MARKETS[
         marketSelect.value
-    ];
-
-    marketNameInput.value =
-    selected.name;
+    ].name;
 
 }
 
-// =====================================
-// LOAD TEMPLATE
-// =====================================
+// ======================================
+// TEMPLATE
+// ======================================
 
-function loadTemplate(){
+function loadTemplate() {
+
+    const market =
+    marketSelect.value;
+
+    templateImage.onload =
+    generatePoster;
+
+    templateImage.src =
+    MARKETS[market].template;
+
+}
+
+// ======================================
+// GENERATE
+// ======================================
+
+function generatePoster() {
+
+    if(!templateImage.complete) return;
 
     const market =
     MARKETS[
         marketSelect.value
     ];
-
-    templateImage.onload =
-    () => {
-
-        generatePoster();
-
-    };
-
-    templateImage.src =
-    market.template;
-
-}
-
-// =====================================
-// GENERATE
-// =====================================
-
-function generatePoster(){
-
-    if(
-        !templateImage.complete
-    ){
-        return;
-    }
-
-    const marketKey =
-    marketSelect.value;
-
-    const marketConfig =
-    MARKETS[
-        marketKey
-    ];
-
-    const marketName =
-    marketNameInput.value ||
-    marketConfig.name;
-
-    const date =
-    dateInput.value ||
-    "20 JUNI 2026";
-
-    const result =
-    resultInput.value ||
-    "0000";
 
     ctx.clearRect(
         0,
@@ -170,131 +165,109 @@ function generatePoster(){
         canvas.height
     );
 
-    // ===================
+    const marketName =
+    marketNameInput.value ||
+    market.name;
+
+    const date =
+    dateInput.value ||
+    "20 JUNI 2026";
+
+    const result =
+    resultInput.value ||
+    "0000";
+
     // PASARAN
-    // ===================
 
-    ctx.save();
-
-    ctx.textAlign =
-    "center";
+    ctx.textAlign = "center";
 
     ctx.fillStyle =
-    marketConfig.style.marketColor;
+    market.style.marketColor;
 
     ctx.font =
-    marketConfig.style.marketFont;
+    market.style.marketFont;
 
     ctx.fillText(
         marketName,
-        marketConfig.position.marketX,
-        marketConfig.position.marketY
+        market.position.marketX,
+        market.position.marketY
     );
 
-    ctx.restore();
-
-    // ===================
     // DATE
-    // ===================
-
-    ctx.save();
-
-    ctx.textAlign =
-    "center";
 
     ctx.fillStyle =
-    marketConfig.style.dateColor;
+    market.style.dateColor;
 
     ctx.font =
-    marketConfig.style.dateFont;
+    market.style.dateFont;
 
     ctx.fillText(
         date,
-        marketConfig.position.dateX,
-        marketConfig.position.dateY
+        market.position.dateX,
+        market.position.dateY
     );
 
-    ctx.restore();
-
-    // ===================
     // RESULT
-    // ===================
-
-    ctx.save();
-
-    ctx.textAlign =
-    "center";
 
     ctx.fillStyle =
-    marketConfig.style.resultColor;
+    market.style.resultColor;
 
     ctx.strokeStyle =
     "#000";
 
-    ctx.lineWidth =
-    8;
+    ctx.lineWidth = 8;
 
     ctx.font =
-    marketConfig.style.resultFont;
+    market.style.resultFont;
 
     ctx.strokeText(
         result,
-        marketConfig.position.resultX,
-        marketConfig.position.resultY
+        market.position.resultX,
+        market.position.resultY
     );
 
     ctx.fillText(
         result,
-        marketConfig.position.resultX,
-        marketConfig.position.resultY
+        market.position.resultX,
+        market.position.resultY
     );
-
-    ctx.restore();
 
     updateStatus();
 
 }
 
-// =====================================
+// ======================================
 // STATUS
-// =====================================
+// ======================================
 
-function updateStatus(){
+function updateStatus() {
 
     liveMarket.innerText =
     marketNameInput.value;
 
     liveResult.innerText =
-    resultInput.value;
+    resultInput.value || "-";
 
     liveDate.innerText =
-    dateInput.value;
+    dateInput.value || "-";
 
     lastUpdate.innerText =
     new Date()
-    .toLocaleTimeString(
-        "id-ID"
-    );
+    .toLocaleTimeString("id-ID");
 
 }
 
-// =====================================
+// ======================================
 // DOWNLOAD
-// =====================================
+// ======================================
 
-function downloadPoster(){
-
-    const market =
-    marketSelect.value;
-
-    const result =
-    resultInput.value || "0000";
+function downloadPoster() {
 
     const link =
     document.createElement("a");
 
     link.download =
-    `${market}-${result}.jpg`;
+    "california-result.jpg";
 
     link.href =
     canvas.toDataURL(
@@ -302,50 +275,13 @@ function downloadPoster(){
         1
     );
 
-    document.body.appendChild(
-        link
-    );
-
     link.click();
 
-    document.body.removeChild(
-        link
-    );
-
 }
 
-// =====================================
-// FETCH RESULT
-// =====================================
-
-function fetchResult(){
-
-    alert(
-        "Realtime API belum dihubungkan.\nTahap berikutnya kita buat API EdgeOne."
-    );
-
-}
-
-// =====================================
+// ======================================
 // EVENTS
-// =====================================
-
-marketSelect.addEventListener(
-    "change",
-    () => {
-
-        const market =
-        MARKETS[
-            marketSelect.value
-        ];
-
-        marketNameInput.value =
-        market.name;
-
-        loadTemplate();
-
-    }
-);
+// ======================================
 
 generateBtn.addEventListener(
     "click",
@@ -357,9 +293,18 @@ downloadBtn.addEventListener(
     downloadPoster
 );
 
-fetchBtn.addEventListener(
-    "click",
-    fetchResult
+marketSelect.addEventListener(
+    "change",
+    () => {
+
+        marketNameInput.value =
+        MARKETS[
+            marketSelect.value
+        ].name;
+
+        loadTemplate();
+
+    }
 );
 
 marketNameInput.addEventListener(
